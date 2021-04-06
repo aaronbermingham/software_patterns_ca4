@@ -25,7 +25,6 @@ public class User  {
 	private String address;
 	private String email;
 	private String paymentMethod;
-	private String role;
 	private String password;
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable( 
@@ -38,12 +37,10 @@ public class User  {
 	        orphanRemoval = true, mappedBy="user")
 	private List<ShoppingCart> cart;
 	
-	public User(String name, String address, String email,String role, String password) {
+	public User(String name, String email, String password) {
 		super();
 		this.name = name;
-		this.address = address;
 		this.email = email;
-		this.role = role;
 		this.password = password;
 	}
 
@@ -67,6 +64,10 @@ public class User  {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public String getEmail() {
@@ -93,12 +94,12 @@ public class User  {
 		this.cart = cart;
 	}
 
-	public String getRole() {
-		return role;
+	public Set<Role> getRole() {
+		return roles;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRole(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	public String getPassword() {
