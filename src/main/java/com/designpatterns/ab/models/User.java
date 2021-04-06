@@ -17,7 +17,7 @@ import javax.persistence.JoinColumn;
 
 
 @Entity
-public class User implements UserInterface {
+public class User  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -25,21 +25,26 @@ public class User implements UserInterface {
 	private String address;
 	private String email;
 	private String paymentMethod;
+	private String role;
+	private String password;
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(	name = "user_roles", 
+	@JoinTable( 
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
+	
 	@OneToMany(
 	        cascade = CascadeType.ALL,
 	        orphanRemoval = true, mappedBy="user")
 	private List<ShoppingCart> cart;
 	
-	public User(String name, String address, String email) {
+	public User(String name, String address, String email,String role, String password) {
 		super();
 		this.name = name;
 		this.address = address;
 		this.email = email;
+		this.role = role;
+		this.password = password;
 	}
 
 	public User() {
@@ -79,7 +84,29 @@ public class User implements UserInterface {
 	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
-	
 
+	public List<ShoppingCart> getCart() {
+		return cart;
+	}
+
+	public void setCart(List<ShoppingCart> cart) {
+		this.cart = cart;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 }

@@ -16,7 +16,7 @@ public class ShoppingCart {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@ManyToMany
-	private List<Items> itemList;
+	private List<Item> itemList;
 	private double totalPrice;
 	@JsonIgnore
 	@ManyToOne
@@ -26,11 +26,11 @@ public class ShoppingCart {
 		super();
 	}
 
-	public List<Items> getItemList() {
+	public List<Item> getItemList() {
 		return itemList;
 	}
 
-	public void setItemList(List<Items> itemList) {
+	public void setItemList(List<Item> itemList) {
 		this.itemList = itemList;
 	}
 

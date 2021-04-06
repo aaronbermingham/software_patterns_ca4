@@ -10,7 +10,7 @@ import javax.persistence.ManyToMany;
 
 
 @Entity
-public class Items {
+public class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -22,7 +22,7 @@ public class Items {
 	@ManyToMany
 	private List<Review> reviewList;
 	
-	public Items(String name, String manufacturer, double price, int stock, String type) {
+	public Item(String name, String manufacturer, double price, int stock, String type) {
 		super();
 		this.name = name;
 		this.manufacturer = manufacturer;
@@ -31,7 +31,7 @@ public class Items {
 		this.type = type;
 	}
 
-	public Items() {
+	public Item() {
 		super();
 	}
 
