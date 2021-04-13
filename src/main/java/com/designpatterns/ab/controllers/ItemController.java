@@ -21,7 +21,7 @@ import com.designpatterns.ab.repository.ItemRepository;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/item")
+@RequestMapping("/api/auth/item")
 
 public class ItemController {
 	@Autowired
