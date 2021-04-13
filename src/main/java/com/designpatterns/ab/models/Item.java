@@ -80,6 +80,16 @@ public class Item {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public List<Review> getReviewList() {
+		return reviewList;
+	}
+
+	public void setReviewList(List<Review> reviewList) {
+		this.reviewList = reviewList;
+	}
+	
+	
 	
 	
 }
