@@ -9,6 +9,6 @@ import com.designpatterns.ab.models.ShoppingCart;
 
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Integer> {
 	
-	@Query(value = "SELECT * FROM shopping_cart s WHERE s.id = ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM shopping_cart s WHERE s.user_id = ?1", nativeQuery = true)
 	List<ShoppingCart> getCartByUserId(int id);
 }
