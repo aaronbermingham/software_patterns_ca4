@@ -65,6 +65,12 @@ public class UserController {
  	public List<User> getAllUsers1() {
  		return userRepository.findAll();
  	}
+	
+
+	@GetMapping("/userById/{id}")
+ 	public User findById(@PathVariable int id) {
+ 		return userRepository.findById(id).get();
+ 	}
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 

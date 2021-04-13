@@ -25,6 +25,12 @@ public class ShoppingCart {
 	public ShoppingCart() {
 		super();
 	}
+	
+
+	public int getId() {
+		return id;
+	}
+
 
 	public List<Item> getItemList() {
 		return itemList;
