@@ -1,5 +1,6 @@
 package com.designpatterns.ab.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.designpatterns.ab.models.Item;
 import com.designpatterns.ab.repository.ItemRepository;
+import com.designpatterns.ab.strategy.Context;
+import com.designpatterns.ab.strategy.SortCategoreyAscending;
+import com.designpatterns.ab.strategy.SortCategoreyDescending;
+import com.designpatterns.ab.strategy.SortManufacturerAscending;
+import com.designpatterns.ab.strategy.SortManufacturerDescending;
+import com.designpatterns.ab.strategy.SortNameAscending;
+import com.designpatterns.ab.strategy.SortNameDescending;
+import com.designpatterns.ab.strategy.SortPriceDescending;
+import com.designpatterns.ab.strategy.SortPriceAscending;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -41,6 +51,66 @@ public class ItemController {
 			return ResponseEntity.ok(i);
 			 
 		}
+		
+		@GetMapping("/nameAscending")
+		public List<Item> sortItemsByName(){
+			List<Item> itemList = itemRepo.findAll();
+			//List<Item> sortedList = new ArrayList<Item>();
+			Context context = new Context(new SortNameAscending());
+			return context.executeSortStrategy(itemList);
+		}
+		
+		@GetMapping("/nameDescending")
+		public List<Item> sortItemsByNameReversed(){
+			List<Item> itemList = itemRepo.findAll();
+			//List<Item> sortedList = new ArrayList<Item>();
+			Context context = new Context(new SortNameDescending());
+			return context.executeSortStrategy(itemList);
+		}
+		
+		@GetMapping("/manufacturerAscending")
+		public List<Item> sortItemsByManufacturer(){
+			List<Item> itemList = itemRepo.findAll();
+			Context context = new Context(new SortManufacturerAscending());
+			return context.executeSortStrategy(itemList);
+		}
+		
+		@GetMapping("/manufacturerDescending")
+		public List<Item> sortItemsByManufacturerReversed(){
+			List<Item> itemList = itemRepo.findAll();
+			Context context = new Context(new SortManufacturerDescending());
+			return context.executeSortStrategy(itemList);
+		}
+		
+		@GetMapping("/priceDescending")
+		public List<Item> priceSortDescending(){
+			List<Item> itemList = itemRepo.findAll();
+			Context context = new Context(new SortPriceDescending());
+			return context.executeSortStrategy(itemList);
+		}
+		
+		@GetMapping("/priceAscending")
+		public List<Item> priceSortAscending(){
+			List<Item> itemList = itemRepo.findAll();
+			Context context = new Context(new SortPriceAscending());
+			return context.executeSortStrategy(itemList);
+		}
+		
+		@GetMapping("/typeDescending")
+		public List<Item> typeSortDescending(){
+			List<Item> itemList = itemRepo.findAll();
+			Context context = new Context(new SortCategoreyDescending());
+			return context.executeSortStrategy(itemList);
+		}
+		
+		@GetMapping("/typeAscending")
+		public List<Item> typePriceAscending(){
+			List<Item> itemList = itemRepo.findAll();
+			Context context = new Context(new SortCategoreyAscending());
+			return context.executeSortStrategy(itemList);
+		}
+		
+		
 		
 		// Search method
 		@GetMapping("/search/{item}")
