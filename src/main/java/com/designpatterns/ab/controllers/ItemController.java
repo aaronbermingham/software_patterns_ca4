@@ -27,7 +27,7 @@ public class ItemController {
 	@Autowired
 	private ItemRepository itemRepo;
 	
-	//return all users
+	//return all items
 		@GetMapping("/all")
 		public List<Item> getAllItems(){
 			return itemRepo.findAll();
@@ -42,6 +42,7 @@ public class ItemController {
 			 
 		}
 		
+		// Search method
 		@GetMapping("/search/{item}")
 		public List<Item> searchItem(@PathVariable String item) {
 			return itemRepo.searchItem(item);
