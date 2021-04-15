@@ -27,7 +27,7 @@ public class ItemController {
 	@Autowired
 	private ItemRepository itemRepo;
 	
-	//return all users
+	//return all items
 		@GetMapping("/all")
 		public List<Item> getAllItems(){
 			return itemRepo.findAll();
@@ -39,6 +39,13 @@ public class ItemController {
 			Item i = itemRepo.findById(id).get();
 					//.orElseThrow(() -> new ResourceNotFoundException("Item with ID:" + id + " does not exist"));
 			return ResponseEntity.ok(i);
+			 
+		}
+		
+		// Search method
+		@GetMapping("/search/{item}")
+		public List<Item> searchItem(@PathVariable String item) {
+			return itemRepo.searchItem(item);
 			 
 		}
 		
