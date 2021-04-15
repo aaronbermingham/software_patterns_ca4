@@ -42,6 +42,12 @@ public class ItemController {
 			 
 		}
 		
+		@GetMapping("/search/{item}")
+		public List<Item> searchItem(@PathVariable String item) {
+			return itemRepo.searchItem(item);
+			 
+		}
+		
 		//create user
 		@PostMapping("/addItem")
 		public Item addUser(@RequestBody Item i) {
