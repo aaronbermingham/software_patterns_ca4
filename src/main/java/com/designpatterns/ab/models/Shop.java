@@ -15,15 +15,13 @@ public class Shop {
 	private String phoneNumber;
 	private String email;
 	
-	public Shop(String name, String address, String phoneNumber, String email) {
-		super();
-		this.name = name;
-		this.address = address;
-		this.phoneNumber = phoneNumber;
-		this.email = email;
-	}
+	private static Shop instance = new Shop();
+	
+	public static Shop getInstance(){
+	      return instance;
+	   }
 
-	public Shop() {
+	private Shop() {
 		super();
 	}
 
