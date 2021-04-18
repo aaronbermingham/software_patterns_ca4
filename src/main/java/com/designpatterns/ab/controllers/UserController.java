@@ -75,6 +75,7 @@ public class UserController {
  		return userRepository.findAll();
  	}
 	
+	//Method to add a payment type
 	@GetMapping("/addPayment/{type}")
 	public Payment addPayment(@PathVariable String type, @RequestBody CreditCard payment) { //
 		Payment p =  paymentFactory.getPaymentType(type);
