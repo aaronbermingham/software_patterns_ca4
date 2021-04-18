@@ -13,8 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
+import org.springframework.context.annotation.ComponentScan;
+
+
+import javax.persistence.JoinColumn;
 
 @Entity
 public class User  {
@@ -24,7 +28,6 @@ public class User  {
 	private String name;
 	private String address;
 	private String email;
-	private String paymentMethod;
 	private String password;
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable( 
@@ -36,6 +39,14 @@ public class User  {
 	        cascade = CascadeType.ALL,
 	        orphanRemoval = true, mappedBy="user")
 	private List<ShoppingCart> cart;
+	@OneToOne(
+	        cascade = CascadeType.ALL,
+	        orphanRemoval = true, mappedBy="user")
+	Paypal paypalPayment;
+	@OneToOne(
+	        cascade = CascadeType.ALL,
+	        orphanRemoval = true, mappedBy="user")
+	CreditCard cardPayment;
 	
 	public User(String name, String email, String password) {
 		super();
@@ -78,14 +89,6 @@ public class User  {
 		this.email = email;
 	}
 
-	public String getPaymentMethod() {
-		return paymentMethod;
-	}
-
-	public void setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
-	}
-
 	public List<ShoppingCart> getCart() {
 		return cart;
 	}
@@ -109,5 +112,23 @@ public class User  {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public Paypal getPaypalPayment() {
+		return paypalPayment;
+	}
+
+	public void setPaypalPayment(Paypal paypalPayment) {
+		this.paypalPayment = paypalPayment;
+	}
+
+	public CreditCard getCardPayment() {
+		return cardPayment;
+	}
+
+	public void setCardPayment(CreditCard cardPayment) {
+		this.cardPayment = cardPayment;
+	}
+	
+	
 
 }
