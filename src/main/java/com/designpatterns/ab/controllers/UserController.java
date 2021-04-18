@@ -27,14 +27,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.designpatterns.ab.jwt.JwtUtils;
 import com.designpatterns.ab.jwt.UserDetailsImpl;
+import com.designpatterns.ab.models.CreditCard;
 import com.designpatterns.ab.models.ERole;
 import com.designpatterns.ab.models.JwtResponse;
 import com.designpatterns.ab.models.LoginRequest;
 import com.designpatterns.ab.models.MessageResponse;
+import com.designpatterns.ab.models.Payment;
+import com.designpatterns.ab.models.PaymentFactory;
 import com.designpatterns.ab.models.Role;
 import com.designpatterns.ab.models.ShoppingCart;
 import com.designpatterns.ab.models.SignupRequest;
 import com.designpatterns.ab.models.User;
+import com.designpatterns.ab.repository.CreditCardRepository;
 import com.designpatterns.ab.repository.RoleRepository;
 import com.designpatterns.ab.repository.ShoppingCartRepository;
 import com.designpatterns.ab.repository.UserRepository;
@@ -56,15 +60,33 @@ public class UserController {
 	JwtUtils jwtUtils;
 	
 	@Autowired
+	CreditCardRepository creditCardRepository;
+	
+	@Autowired
 	private UserRepository userRepository;
 	
 	@Autowired
 	private ShoppingCartRepository cartRepository;
 	
+	private PaymentFactory paymentFactory = new PaymentFactory();
+	
 	@GetMapping("/users")
  	public List<User> getAllUsers1() {
  		return userRepository.findAll();
  	}
+	
+	//Method to add a payment type
+	@GetMapping("/addPayment/{type}")
+	public Payment addPayment(@PathVariable String type, @RequestBody CreditCard payment) { //
+		Payment p =  paymentFactory.getPaymentType(type);
+		if(p instanceof CreditCard) {
+			creditCardRepository.save(p);
+		}
+		//else if(p.payment().equals("paypal"))
+		
+		return p;
+		
+	}
 	
 
 	@GetMapping("/userById/{id}")
