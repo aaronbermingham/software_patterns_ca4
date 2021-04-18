@@ -56,8 +56,4 @@ public class ShoppingCart {
 		this.user = user;
 	}
 	
-	
-	
-	
-	
 }

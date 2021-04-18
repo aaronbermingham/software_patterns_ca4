@@ -2,6 +2,7 @@ package com.designpatterns.ab.controllers;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.designpatterns.ab.iterator.ObjectIterator;
 import com.designpatterns.ab.jwt.JwtUtils;
 import com.designpatterns.ab.jwt.UserDetailsImpl;
 import com.designpatterns.ab.models.ERole;
@@ -62,11 +63,10 @@ public class UserController {
 	private ShoppingCartRepository cartRepository;
 	
 	@GetMapping("/users")
- 	public List<User> getAllUsers1() {
+ 	public List<User> getAllUsers() {
  		return userRepository.findAll();
  	}
 	
-
 	@GetMapping("/userById/{id}")
  	public User findById(@PathVariable int id) {
  		return userRepository.findById(id).get();
