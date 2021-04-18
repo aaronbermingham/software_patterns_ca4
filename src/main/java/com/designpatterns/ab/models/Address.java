@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Address {
 	@Id
@@ -16,6 +18,7 @@ public class Address {
 	public String town;
 	public String county;
 	public String country;
+	@JsonIgnore
 	 @OneToOne(mappedBy = "address")
 	public User user;
 	
