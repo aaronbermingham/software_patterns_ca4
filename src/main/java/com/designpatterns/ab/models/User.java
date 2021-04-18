@@ -1,6 +1,7 @@
 package com.designpatterns.ab.models;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+
+
 import javax.persistence.JoinColumn;
 
 
@@ -109,5 +113,7 @@ public class User  {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	
 
 }

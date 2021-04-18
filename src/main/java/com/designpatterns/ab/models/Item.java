@@ -1,5 +1,6 @@
 package com.designpatterns.ab.models;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,9 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.designpatterns.ab.iterator.Container;
+import com.designpatterns.ab.iterator.ObjectIterator;
+
 
 @Entity
-public class Item {
+public class Item implements Container {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -87,6 +91,41 @@ public class Item {
 
 	public void setReviewList(List<Review> reviewList) {
 		this.reviewList = reviewList;
+	}
+
+	@Override
+	public ObjectIterator getIterator() {
+		// TODO Auto-generated method stub
+		return new ReviewIterator();
+	}
+	
+
+	private class ReviewIterator implements ObjectIterator{
+		int index;
+		
+		
+		public int getIndex() {
+			return index;
+		}
+
+		public void setIndex(int index) {
+			this.index = index;
+		}
+
+		@Override
+		public boolean hasNext() {
+			 if(index < reviewList.size()){
+		            return true;
+		         }
+		         return false;
+			
+		}
+
+		@Override
+		public Object next() {
+			return reviewList.get(index++);
+		}
+		
 	}
 	
 	

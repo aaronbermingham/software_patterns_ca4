@@ -1,5 +1,6 @@
 package com.designpatterns.ab.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.designpatterns.ab.iterator.ObjectIterator;
 import com.designpatterns.ab.models.Item;
 import com.designpatterns.ab.models.Review;
 import com.designpatterns.ab.repository.ItemRepository;
@@ -37,9 +39,23 @@ public class ReviewController {
 		return reviewRepo.save(r);
 	}
 	
+//	@GetMapping("/all")
+//	public List<Review> getAllReviews(){
+//		return reviewRepo.findAll();
+//	}
+	
 	@GetMapping("/all")
-	public List<Review> getAllReviews(){
-		return reviewRepo.findAll();
+	public List<Review> getReviewsIterator(){
+		List<Item> itemList = itemRepo.findAll();
+		List<Review> reviewList = new ArrayList<Review>();
+		for(Item i : itemList) {
+			List<Review> r = i.getReviewList();
+			for(ObjectIterator obIter = i.getIterator(); obIter.hasNext();){
+				Review rev = (Review)obIter.next();
+				reviewList.add(rev);
+			}
+		}
+		return reviewList;
 	}
 	
 	@GetMapping("/reviewByProductId/{itemId}")
