@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.designpatterns.ab.interpreter.CartDiscount;
 import com.designpatterns.ab.models.Item;
 import com.designpatterns.ab.models.ShoppingCart;
 import com.designpatterns.ab.models.User;
@@ -72,6 +73,31 @@ public class ShoppingCartController {
 		
 	}
 	
+	@GetMapping("/cartDiscount/{id}/{discountString}")
+	public double getCartDiscount(@PathVariable int id, @PathVariable String discountString) {
+		ShoppingCart cart = cartRepository.findById(id).get();
+		double discountedPrice = 0;
+		CartDiscount discount = new CartDiscount();
+		if(discount.studentDiscount(discountString) == true) {
+			discountedPrice = cart.getTotalPrice() -(cart.getTotalPrice()*.15);
+			cart.setTotalPrice(discountedPrice);
+			cartRepository.save(cart);
+			return discountedPrice;
+		}
+		else if(discount.tenDiscount(discountString) == true) {
+			discountedPrice = cart.getTotalPrice() -(cart.getTotalPrice()*.10);
+			cart.setTotalPrice(discountedPrice);
+			cartRepository.save(cart);
+			return discountedPrice;
+		}
+		else if(discount.twentyDiscount(discountString) == true) {
+			discountedPrice = cart.getTotalPrice() -(cart.getTotalPrice()*.20);
+			cart.setTotalPrice(discountedPrice);
+			cartRepository.save(cart);
+			return discountedPrice;
+		}
+		return discountedPrice;
+	}
 	
 	
 	// Delete a cart
