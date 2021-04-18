@@ -14,9 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-
-
-
+import javax.persistence.OneToOne;
 import javax.persistence.JoinColumn;
 
 
@@ -26,7 +24,6 @@ public class User  {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	private String address;
 	private String email;
 	private String paymentMethod;
 	private String password;
@@ -35,6 +32,9 @@ public class User  {
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+	private Address address;
 	
 	@OneToMany(
 	        cascade = CascadeType.ALL,
@@ -62,11 +62,11 @@ public class User  {
 		this.name = name;
 	}
 
-	public String getAddress() {
+	public Address getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 	
